@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<info>
+	<id>events</id>
+	<name>Server side app for Nextcloud event </name>
+	<summary>Manage your Nextcloud events.</summary>
+	<description>Easily create events and send the link to people to share all the images/videos of tha event.</description>
+
+	<licence>AGPL</licence>
+	<author>Roeland Jago Douma</author>
+	<category>social</category>
+
+	<website>https://github.com/rullzer/events</website>
+	<bugs>https://github.com/rullzer/events/issues</bugs>
+	<repository type="git">https://github.com/rullzer/events.git</repository>
+
+	<version>0.0.1</version>
+	<namespace>Events</namespace>
+
+	<dependencies>
+		<nextcloud min-version="13" max-version="14" />
+	</dependencies>
+</info>
