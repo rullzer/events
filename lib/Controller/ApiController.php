@@ -159,7 +159,7 @@ class ApiController extends Controller {
 	 * @PublicPage
 	 * @NoCSRFRequired
 	 */
-	public function createUpload(string $token, string $userName): JSONResponse {
+	public function createUpload(string $token, string $username): JSONResponse {
 		try {
 			$event = $this->eventMapper->getEvent($token);
 		} catch (DoesNotExistException $e) {
@@ -169,10 +169,10 @@ class ApiController extends Controller {
 		$folder = $this->getFolder($event);
 
 		try {
-			$userFolder = $folder->get($userName);
+			$userFolder = $folder->get($username);
 			return new JSONResponse([], Http::STATUS_PRECONDITION_FAILED);
 		} catch (NotFoundException $e) {
-			$userFolder = $folder->newFolder($userName);
+			$userFolder = $folder->newFolder($username);
 		}
 		
 		$share = $this->shareManager->newShare();
