@@ -78,7 +78,7 @@ class ApiController extends Controller {
 	}
 
 	/**
-	 * @NoAdminRequireds
+	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 */
 	public function createEvent(string $eventName, int $start, int $end) {
