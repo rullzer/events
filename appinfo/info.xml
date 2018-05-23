@@ -13,7 +13,7 @@
 	<bugs>https://github.com/rullzer/events/issues</bugs>
 	<repository type="git">https://github.com/rullzer/events.git</repository>
 
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 	<namespace>Events</namespace>
 
 	<dependencies>
