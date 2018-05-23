@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <info>
 	<id>events</id>
-	<name>Server side app for Nextcloud event </name>
+	<name>Events</name>
 	<summary>Manage your Nextcloud events.</summary>
 	<description>Easily create events and send the link to people to share all the images/videos of tha event.</description>
 
