@@ -39,6 +39,8 @@ A get to:
 Will get you the event info as well as the READ ONLY token (for the general public
 webdav endpoint) of the event.
 
+The url is the url to use as webdav endpoint. Use the token as your username.
+
 ### Get write access to the event
 
 A post to:
@@ -53,3 +55,5 @@ where:
 * USERNAME = your username
 
 will create a write token to upload your files to.
+
+The url is the url to use as webdav endpoint. Use the token as your username.

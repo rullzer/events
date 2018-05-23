@@ -34,6 +34,7 @@ use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException;
 use OCP\IRequest;
+use OCP\IURLGenerator;
 use OCP\IUserManager;
 use OCP\IUserSession;
 use OCP\Security\ISecureRandom;
@@ -59,6 +60,9 @@ class ApiController extends Controller {
 	/** @var ISecureRandom */
 	private $random;
 
+	/** @var IURLGenerator */
+	private $urlGenerator;
+
 	public function __construct(string $appName,
 								IRequest $request,
 								EventMapper $eventMapper,
@@ -66,7 +70,8 @@ class ApiController extends Controller {
 								IRootFolder $rootFolder,
 								IUserManager $userManager,
 								IUserSession $userSession,
-								ISecureRandom $random) {
+								ISecureRandom $random,
+								IURLGenerator $urlGenerator) {
 		parent::__construct($appName, $request);
 
 		$this->eventMapper = $eventMapper;
@@ -75,6 +80,7 @@ class ApiController extends Controller {
 		$this->userManager = $userManager;
 		$this->userSession = $userSession;
 		$this->random = $random;
+		$this->urlGenerator = $urlGenerator;
 	}
 
 	/**
@@ -143,6 +149,9 @@ class ApiController extends Controller {
 			'start' => $event->getStart(),
 			'end' => $event->getEnd(),
 			'readToken' => $share->getToken(),
+			'url' => $this->urlGenerator->getAbsoluteURL(
+				$this->urlGenerator->linkTo('', 'public.php') . '/webdav'
+			)
 		]);
 	}
 
@@ -176,6 +185,9 @@ class ApiController extends Controller {
 
 		return new JSONResponse([
 			'privateToken' => $share->getToken(),
+			'url' => $this->urlGenerator->getAbsoluteURL(
+				$this->urlGenerator->linkTo('', 'public.php') . '/webdav'
+			)
 		]);
 	}
 
