@@ -179,7 +179,7 @@ class ApiController extends Controller {
 		$share->setShareType(\OCP\Share::SHARE_TYPE_LINK);
 		$share->setNode($userFolder);
 		$share->setSharedBy($event->getUid());
-		$share->setPermissions(\OCP\Constants::PERMISSION_READ | \OCP\Constants::PERMISSION_CREATE);
+		$share->setPermissions(\OCP\Constants::PERMISSION_READ | \OCP\Constants::PERMISSION_CREATE | \OCP\Constants::PERMISSION_UPDATE | \OCP\Constants::PERMISSION_DELETE);
 
 		$share = $this->shareManager->createShare($share);
 
