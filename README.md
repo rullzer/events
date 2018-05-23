@@ -26,11 +26,15 @@ where:
 
 This returns you the event token
 
+### Get the event landing page
+
+Go to `<server>/apps/events/<TOKEN>`
+
 ### Get the general event info
 
 A get to:
 
-`<server>/apps/events/<TOKEN>`
+`<server>/apps/events/api/v1/<TOKEN>`
 
 Will get you the event info as well as the READ ONLY token (for the general public
 webdav endpoint) of the event.
@@ -39,7 +43,7 @@ webdav endpoint) of the event.
 
 A post to:
 
-`<server>/apps/events/<TOKEN>`
+`<server>/apps/events/api/v1/<TOKEN>`
 
 with
 
