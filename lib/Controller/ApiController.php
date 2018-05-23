@@ -35,6 +35,8 @@ use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException;
 use OCP\IRequest;
 use OCP\IUserManager;
+use OCP\IUserSession;
+use OCP\Security\ISecureRandom;
 use OCP\Share\IManager as ShareManager;
 
 class ApiController extends Controller {
@@ -51,18 +53,65 @@ class ApiController extends Controller {
 	/** @var IUserManager */
 	private $userManager;
 
+	/** @var IUserSession */
+	private $userSession;
+
+	/** @var ISecureRandom */
+	private $random;
+
 	public function __construct(string $appName,
 								IRequest $request,
 								EventMapper $eventMapper,
 								ShareManager $sharemanager,
 								IRootFolder $rootFolder,
-								IUserManager $userManager) {
+								IUserManager $userManager,
+								IUserSession $userSession,
+								ISecureRandom $random) {
 		parent::__construct($appName, $request);
 
 		$this->eventMapper = $eventMapper;
 		$this->shareManager = $sharemanager;
 		$this->rootFolder = $rootFolder;
 		$this->userManager = $userManager;
+		$this->userSession = $userSession;
+		$this->random = $random;
+	}
+
+	/**
+	 * @NoAdminRequireds
+	 * @NoCSRFRequired
+	 */
+	public function createEvent(string $eventName, int $start, int $end) {
+		$user = $this->userSession->getUser();
+
+		if ($user === null) {
+			return new JSONResponse([], Http::STATUS_UNAUTHORIZED);
+		}
+
+		$event = new Event();
+		$event->setUid($user->getUID());
+
+		$token = $this->random->generate(6, ISecureRandom::CHAR_HUMAN_READABLE);
+		$event->setToken($token);
+		$event->setStart($start);
+		$event->setEnd($end);
+		$event->setEventName($eventName);
+
+		$eventFolder = $this->getFolder($event);
+
+		$share = $this->shareManager->newShare();
+		$share->setShareType(\OCP\Share::SHARE_TYPE_LINK);
+		$share->setSharedBy($user->getUID());
+		$share->setPermissions(\OCP\Constants::PERMISSION_READ);
+		$share->setNode($eventFolder);
+		$share = $this->shareManager->createShare($share);
+
+		$event->setFolderId($eventFolder->getId());
+		$this->eventMapper->insert($event);
+
+		return new JSONResponse([
+			'token' => $token,
+		]);
 	}
 
 

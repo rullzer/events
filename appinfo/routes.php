@@ -26,6 +26,7 @@ return [
 	'routes' => [
 		['name' => 'public_page#index', 'url' => '/{token}', 'verb' => 'GET'],
 		['name' => 'api#getEventInfo', 'url' => '/api/v1/{token}', 'verb' => 'GET'],
-		['name' => 'api#createUpload', 'url' => '/api/v1/{troken}', 'verb' => 'POST'],
+		['name' => 'api#createUpload', 'url' => '/api/v1/{token}', 'verb' => 'POST'],
+		['name' => 'api#createEvent', 'url' => '/api/v1', 'verb' => 'POST'],
 	],
 ];
